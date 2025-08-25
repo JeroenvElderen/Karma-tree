@@ -21,13 +21,13 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// 🌞 Lights
+// Lights
 scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1.5));
 const dirLight = new THREE.DirectionalLight(0xffffff, 1);
 dirLight.position.set(10, 20, 10);
 scene.add(dirLight);
 
-// 🌱 Ground
+// Ground
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(80, 80),
   new THREE.MeshLambertMaterial({ color: 0x88cc88 })
@@ -35,10 +35,10 @@ const ground = new THREE.Mesh(
 ground.rotation.x = -Math.PI / 2;
 scene.add(ground);
 
-// 🍂 Load leaf texture
-const leafTexture = new THREE.TextureLoader().load(
-  "https://i.imgur.com/8w7iO4G.png"  // transparent PNG leaf
-);
+// 🍂 Base64 leaf image (green transparent PNG)
+const leafData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAt0lEQVRYR+2XwQ3CMAxF7QhQEswATsAAHsAES4AAIuAAMVtNEEraPFc+LZrTvbMShBY4kwfETgSmO6lpPoyBJvBr/wV2tQAGuICFuAOtGc0iMdyNh3+Uxvhc5FnUQCTRO3FY5fnsfZbyO8SCBLq+5AQCpCkAonVqso2jTgOlZjDEkmTq0dncbs7Lw0XPaLqwwv7qQECd7NPSWTUPUAAAAASUVORK5CYII=";
+
+const leafTexture = new THREE.TextureLoader().load(leafData);
 
 // 🌳 Tree generator
 function createTree(karma) {
@@ -53,19 +53,6 @@ function createTree(karma) {
   trunk.position.y = trunkHeight / 2;
   group.add(trunk);
 
-  // --- Branches ---
-  const branchMat = new THREE.MeshLambertMaterial({ color: 0x6e3b1d });
-  for (let i = 0; i < 8; i++) {
-    const branch = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.1, 0.3, 3, 6),
-      branchMat
-    );
-    branch.position.y = 3 + Math.random() * 5;
-    branch.rotation.z = (Math.random() - 0.5) * 1.2;
-    branch.rotation.y = Math.random() * Math.PI * 2;
-    group.add(branch);
-  }
-
   // --- Leaves = Karma ---
   const leafGeom = new THREE.PlaneGeometry(1.5, 1.5);
   const leafMat = new THREE.MeshLambertMaterial({
@@ -74,8 +61,7 @@ function createTree(karma) {
     side: THREE.DoubleSide
   });
 
-  // Karma → number of leaves
-  const leafCount = Math.min(karma * 5, 1000); // cap at 1000 for performance
+  const leafCount = Math.min(karma * 5, 1000); // cap for performance
 
   for (let i = 0; i < leafCount; i++) {
     const leaf = new THREE.Mesh(leafGeom, leafMat);
@@ -99,13 +85,13 @@ function createTree(karma) {
   return group;
 }
 
-// Example: tree for a user with 120 karma
+// Example: 120 karma = lush tree
 scene.add(createTree(120));
 
-// 🎥 Animate
+// Animate
 function animate() {
   requestAnimationFrame(animate);
-  scene.rotation.y += 0.002; // slow spin for showcase
+  scene.rotation.y += 0.002; // slow spin
   renderer.render(scene, camera);
 }
 animate();
