@@ -38,7 +38,9 @@ scene.add(ground);
 // 🍂 Base64 leaf image (green transparent PNG)
 const leafData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAt0lEQVRYR+2XwQ3CMAxF7QhQEswATsAAHsAES4AAIuAAMVtNEEraPFc+LZrTvbMShBY4kwfETgSmO6lpPoyBJvBr/wV2tQAGuICFuAOtGc0iMdyNh3+Uxvhc5FnUQCTRO3FY5fnsfZbyO8SCBLq+5AQCpCkAonVqso2jTgOlZjDEkmTq0dncbs7Lw0XPaLqwwv7qQECd7NPSWTUPUAAAAASUVORK5CYII=";
 
-const leafTexture = new THREE.TextureLoader().load(leafData);
+const leafTexture = new THREE.TextureLoader().load(
+  "leaf.png"
+);
 
 // 🌳 Tree generator
 function createTree(karma) {
