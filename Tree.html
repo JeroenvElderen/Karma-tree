@@ -35,11 +35,9 @@ const ground = new THREE.Mesh(
 ground.rotation.x = -Math.PI / 2;
 scene.add(ground);
 
-// 🍂 Base64 leaf image (green transparent PNG)
-const leafData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAt0lEQVRYR+2XwQ3CMAxF7QhQEswATsAAHsAES4AAIuAAMVtNEEraPFc+LZrTvbMShBY4kwfETgSmO6lpPoyBJvBr/wV2tQAGuICFuAOtGc0iMdyNh3+Uxvhc5FnUQCTRO3FY5fnsfZbyO8SCBLq+5AQCpCkAonVqso2jTgOlZjDEkmTq0dncbs7Lw0XPaLqwwv7qQECd7NPSWTUPUAAAAASUVORK5CYII=";
-
+// 🍃 Load your leaf texture from GitHub Pages
 const leafTexture = new THREE.TextureLoader().load(
-  "leaf.png"
+  "https://jeroenvelderen.github.io/karma-tree/leaf.png"
 );
 
 // 🌳 Tree generator
